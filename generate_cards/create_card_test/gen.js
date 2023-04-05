@@ -146,11 +146,3 @@ function roundedImage(x, y, width, height, radius) {
 //   ctx.fillText('Hero_nameHero_nameHero_nameHero_nameHero_name', 200, 550);
 // };
 
-//https://www.youtube.com/watch?v=3c2EFpCr_vY
-///https://github.com/meguerreroa/FGO-Card-Generator/blob/master/fgo.html
-//https://stackoverflow.com/questions/73326189/how-do-i-draw-multiple-images-onto-the-canvas-at-once
-//https://stackoverflow.com/questions/7496674/how-to-rotate-one-image-in-a-canvas
-//https://stackoverflow.com/questions/25816847/canvas-context-filltext-vs-context-stroketext
-//http://jsfiddle.net/huds0fr7/
-//https://stackoverflow.com/questions/25837158/how-to-draw-a-star-by-using-canvas-html5
-//https://stackoverflow.com/questions/19585999/canvas-drawimage-with-round-corners
