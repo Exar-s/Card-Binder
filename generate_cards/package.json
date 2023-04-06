@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node getData.js"
+    "start": "node getData.js",
+    "card": "node card.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "canvas": "^2.11.2",
     "puppeteer": "^19.8.2"
   }
 }
