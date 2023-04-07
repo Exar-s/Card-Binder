@@ -7,6 +7,7 @@ async function run() {
   await page.goto('https://gamepress.gg/grandorder/servants');
   const servantList = await page.evaluate(() => {
     return Array.from(document.querySelectorAll('.servants-new-row'), (e) => {
+      if(parseInt(e.querySelector('.servant-no').innerText) < 374) return;
       return {
         id: parseInt(e.querySelector('.servant-no').innerText),
         link: e.querySelector('.servant-title .servant-list-row-left a').href,
@@ -15,11 +16,15 @@ async function run() {
     });
   });
 
-  const arr = [];
+  const oldData = JSON.parse(fs.readFileSync('servants.json', 'utf-8'))
+  const arr = oldData;
+
   let curr = 0;
+  console.log(servantList)
   for (const servant of servantList) {
     // if (curr === 1) break;
     // curr++;
+    if(servant === null) continue;
     console.log(servant);
     if ([83, 149, 151, 152, 168, 240, 333].includes(servant.id))
       continue;
@@ -81,7 +86,7 @@ async function run() {
   }
   console.log(arr);
   arr.sort((first, second) => first.id - second.id)
-  await fs.promises.writeFile('./servants.json', JSON.stringify(arr))
+  await fs.promises.writeFile('servants2.json', JSON.stringify(arr))
   await browser.close();
   // process.exit(0);
 }

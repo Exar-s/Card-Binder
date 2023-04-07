@@ -17,7 +17,9 @@ const ctx = canvas.getContext('2d');
 
 async function drawAll(servantList) {
   for (const servant of servantList) {
-    await draw(servant);
+    if(servant.id > 373){
+      await draw(servant)
+    }
   }
 }
 
