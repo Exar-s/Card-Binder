@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./binder.css" />
+  <script defer src="./binder.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <title>Binder</title>
+</head>
+
+<body>
+  <div>
+      <p class="pgnum"><span id="currpage">0</span>/<span id="totalpage">0</span></p>
+  </div>
+  <div class="book">
+      <div class="overlays">
+          <div class="card-overlay">
+              <button class="overlay-close">X</button>
+              <div class="overlay-img-container">
+                  <div class="hovercard">
+                      <img src="" alt="" class="overlay-img" />
+                      <div class="glare"></div>
+                  </div>
+              </div>
+          </div>
+          <div class="card-overlay info">
+              <div class="np">
+                  <img src="./imgs/np.png" alt="" />
+                  <div class="np-info">
+                      <p class="np-name">np name</p>
+                      <p class="np-type">np type</p>
+                  </div>
+              </div>
+              <div class="canvas-container">
+                  <canvas id="paramChart"></canvas>
+              </div>
+              <div class="canvas-container">
+                  <canvas id="atkhpChart"></canvas>
+              </div>
+          </div>
+      </div>
+      <div class="pages cover" id="first">
+          <div class="front">
+
+          </div>
+          <div class="back binder">
+              <div class="card">
+                  <div class="front"></div>
+              </div>
+              <div class="card">
+                  <div class="front"></div>
+              </div>
+              <div class="card">
+                  <div class="front"></div>
+              </div>
+              <div class="card">
+                  <div class="front"></div>
+              </div>
+          </div>
+      </div>
+      <div class="pages real">
+          <div class="front binder">
+              <div class="card" data-page="first">
+                  <div class="front"></div>
+                  <div class="back" data-card="1"></div>
+              </div>
+              <div class="card" data-page="first">
+                  <div class="front"></div>
+                  <div class="back" data-card="2"></div>
+              </div>
+              <div class="card" data-page="first">
+                  <div class="front"></div>
+                  <div class="back" data-card="2"></div>
+              </div>
+              <div class="card">
+                  <div class="front" data-page="first"></div>
+                  <div class="back" data-card="4"></div>
+              </div>
+          </div>
+      </div>
+      <div class="pages" id="flip">
+          <div class="front binder">
+              <div class="card">
+                  <div class="front"></div>
+              </div>
+              <div class="card">
+                  <div class="front"></div>
+              </div>
+              <div class="card">
+                  <div class="front"></div>
+              </div>
+              <div class="card">
+                  <div class="front"></div>
+              </div>
+          </div>
+          <div class="back binder">
+              <div class="card">
+                  <div class="front"></div>
+              </div>
+              <div class="card">
+                  <div class="front"></div>
+              </div>
+              <div class="card">
+                  <div class="front"></div>
+              </div>
+              <div class="card">
+                  <div class="front"></div>
+              </div>
+          </div>
+      </div>
+      <div class="pages backcover" id="second">
+          <div class="front binder">
+              <div class="card" data-page="second">
+                  <div class="front"></div>
+                  <div class="back" data-card="5"></div>
+              </div>
+              <div class="card" data-page="second">
+                  <div class="front"></div>
+                  <div class="back" data-card="6"></div>
+              </div>
+              <div class="card" data-page="second">
+                  <div class="front"></div>
+                  <div class="back" data-card="7"></div>
+              </div>
+              <div class="card" data-page="second">
+                  <div class="front"></div>
+                  <div class="back" data-card="8"></div>
+              </div>
+          </div>
+          <div class="back"></div>
+      </div>
+  </div>
+  <div class="bottom">
+      <button id="first-page" disabled><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960"
+              width="24" fill="#FFFFFF">
+              <path
+                  d="M434 848 162 576l272-272 88 88-184 184 184 184-88 88Zm276 0L438 576l272-272 88 88-183 184 183 184-88 88Z" />
+          </svg></button>
+      <button id="prev" disabled><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"
+              fill="#FFFFFF">
+              <path d="M560 848 288 576l272-272 88 88-184 184 184 184-88 88Z" />
+          </svg></button>
+      <form id="pagenum">
+          <input type="number" id="pageinput" min="1" placeholder="PG #">
+      </form>
+      <button id="next"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"
+              fill="#FFFFFF">
+              <path d="m376 848-88-88 184-184-184-184 88-88 272 272-272 272Z" />
+          </svg></button>
+      <button id="last-page"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"
+              fill="#FFFFFF">
+              <path
+                  d="m250 848-88-88 183-184-183-184 88-88 272 272-272 272Zm276 0-88-88 184-184-184-184 88-88 272 272-272 272Z" />
+          </svg></button>
+  </div>
+</body>
+
+</html>

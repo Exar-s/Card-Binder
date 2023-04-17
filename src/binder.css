@@ -1,0 +1,429 @@
+:root {
+    --font: 1.5vw;
+    --poiX: 50%;
+    --poiY: 50%;
+    --light: 0;
+    --card-border: 0.5em:
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: #313131;
+    min-height: 100vh;
+    place-items: center;
+    place-content: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-style: italic;
+    background-image: url('./imgs/otonebg.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    user-select: none;
+    overflow: hidden;
+}
+
+.book {
+    height: auto;
+    width: 40vw;
+    aspect-ratio: 4/3;
+    position: relative;
+    perspective: 1000px;
+    filter: drop-shadow(5px 5px 10px rgba(255, 255, 255, 0.3))
+}
+
+.pages {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    border: 0.2em solid #414141;
+    background-color: antiquewhite;
+    transform-origin: left;
+    transition: transform 0.5s ease-in;
+    transform: translateX(-50%);
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+#first {
+    z-index: 3;
+}
+
+#second {
+    z-index: 2;
+}
+
+#flip {
+    z-index: 1;
+    display: none;
+    transform: translateX(-50%);
+}
+
+#flip.pages.flipleft {
+    color: darkblue;
+    display: block;
+    z-index: 4;
+    animation: left 0.7s ease-in
+}
+
+@keyframes left {
+    from {
+        transform: translateX(0%);
+    }
+
+    to {
+        transform: translateX(0%) rotateY(-180deg);
+    }
+}
+
+#flip.pages.flipright {
+    left: 0;
+    color: darkblue;
+    display: block;
+    transform-origin: right;
+    transform: translateX(0%);
+    z-index: 4;
+    animation: right 0.7s ease-in
+}
+
+@keyframes right {
+    from {
+        transform: translateX(0%);
+    }
+
+    to {
+        transform: translateX(0%) rotateY(180deg);
+    }
+}
+
+.front,
+.back {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    color: white;
+    background-image: url('./imgs/bg.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.cover .front {
+    background-color: #313131;
+    background-image: url('./imgs/cap.png');
+    padding: 1rem;
+}
+
+.backcover .back {
+    background-image: url('./imgs/theback.png');
+}
+
+.front {
+    backface-visibility: hidden;
+    z-index: 1;
+}
+
+.back {
+    transform: rotateY(180deg);
+}
+
+.book.open .pages {
+    right: 0;
+    transform: translateX(0%)
+}
+
+.book.open #first {
+    transform: translateX(0%) rotateY(-180deg);
+}
+
+.book.close #first {
+    transform: translateX(50%) rotateY(-180deg);
+}
+
+#second.closed {
+    z-index: 4;
+}
+
+.book.close #second {
+    transform: translateX(50%) rotateY(-180deg);
+}
+
+.binder {
+    display: grid;
+    padding: 3%;
+    grid-gap: 3%;
+    place-content: center;
+    grid-template-columns: 45% 45%;
+    grid-template-rows: 45% 45%;
+}
+
+.card {
+    border-radius: var(--card-border);
+    transition: transform 0.3s ease-in, box-shadow 0.1s linear;
+    transform-style: preserve-3d;
+    outline: 0.1em solid grey;
+    outline-style: dashed;
+    outline-offset: 0.3em;
+    position: relative;
+    will-change: transform;
+    cursor: pointer;
+}
+
+.card.flip {
+    transform: rotateY(180deg);
+}
+
+.card.flip:hover {
+    box-shadow: 0 0 10px 10px rgba(255, 255, 255, 0.3);
+}
+
+.card .front {
+    background-image: url('./imgs/back.jpg');
+    background-position: center;
+    background-size: cover;
+}
+
+.card .front,
+.card .back {
+    border-radius: 0;
+}
+
+.card .back {
+    transition: transform 0.1s ease-out;
+    transform-origin: center;
+}
+
+.card.flip.active {
+    outline: 0;
+    z-index: 2;
+}
+
+.pages.real {
+    display: none;
+}
+
+.pages.real.active {
+    display: initial;
+    z-index: 4;
+    left: 0;
+}
+
+.canvas-container {
+    position: relative;
+    margin: 1.5em 0;
+    width: 100%;
+    height: 70%;
+}
+
+.np {
+    display: flex;
+    gap: 0.5em;
+    padding-top: 1em;
+    color: gold;
+}
+
+.np img {
+    height: calc((var(--font) - .2rem) + var(--font));
+}
+
+.np-info .np-name {
+    font-size: var(--font);
+}
+
+.np-info .np-type {
+    font-size: calc(var(--font) - .2rem)
+}
+
+.overlays {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    background-image: url('./imgs/bg.jpg');
+    color: white;
+    z-index: 999;
+    display: none;
+    animation: fadeIn 0.4s ease-in;
+}
+
+.overlay-img-container {
+    position: absolute;
+    padding: 3%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    width: 90%;
+    height: 90%;
+    border-radius: var(--card-border);
+    perspective: 5000px;
+}
+
+.overlay-close {
+    color: white;
+    border-radius: 0;
+}
+
+.overlay-close:hover {
+    background-color: rgba(255, 0, 0, 0.8);
+}
+
+.overlays.active {
+    display: flex;
+}
+
+.card-overlay {
+    position: relative;
+    width: 50%;
+}
+
+
+.card img,
+.overlay-img {
+    width: 100%;
+    height: 100%;
+    border-radius: var(--card-border);
+}
+
+.card-overlay.info {
+    overflow-Y: scroll;
+}
+
+.card-overlay.info::-webkit-scrollbar {
+    width: 0.8em;
+}
+
+.card-overlay.info::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #212121;
+}
+
+.card-overlay.info::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    background-color: white;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.overlays.active .canvas-container {
+    animation-delay: 0.4s;
+    animation: slideIn 0.4s ease-in;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translate(-300px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(0);
+        opacity: 1;
+    }
+
+}
+
+button:disabled {
+    opacity: 0;
+}
+
+button {
+    outline: 0;
+    border: 0;
+    height: 2rem;
+    width: 2rem;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+button:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.bottom {
+    display: flex;
+    margin-top: 1em;
+}
+
+input[type=number] {
+    height: 2rem;
+    margin: 0 0.2em;
+    outline: 0;
+}
+
+.pgnum {
+    align-self: flex-end;
+    font-size: 1rem;
+    line-height: 2rem;
+    margin-left: 1rem;
+    color: white;
+}
+
+.hovercard {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    transform-origin: center;
+    transition: transform 0.01s linear;
+    box-shadow: 0 0 3px -1px transparent, 0 0 2px 1px transparent, 0 0 5px 0px transparent, 0px 10px 20px -5px black, 0 2px 15px -5px black, 0 0 20px 0px transparent;
+}
+
+.hovercard * {
+    display: grid;
+    max-height: 100%;
+    grid-area: 1/1;
+    aspect-ratio: 349/536;
+    border-radius: var(--card-border);
+}
+
+.glare {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-image: radial-gradient(farthest-corner circle at var(--poiX) var(--poiY), hsla(0, 0%, 80%, 0.8) 10%, hsla(0, 0%, 80%, 0.65) 20%, hsla(0, 0%, 40%, 0.4) 70%);
+    opacity: var(--light);
+    mix-blend-mode: hard-light
+}
+
+@media screen and (max-width:1300px) {
+    :root {
+        --font: 2vw
+    }
+
+    .book {
+        width: 65vw;
+    }
+}
+
+@media screen and (max-width:1000px) {
+    :root {
+        --font: 2.5svw
+    }
+
+    .book {
+        width: 100vw;
+    }
+}
